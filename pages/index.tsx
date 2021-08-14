@@ -1,4 +1,4 @@
-import Link from "next/link";
+import MushroomList from "../src/components/MushroomList";
 import Navbar from "../src/components/Navbar";
 
 export function Home() {
@@ -6,8 +6,9 @@ export function Home() {
     <>
       <Navbar />
       <br></br>
+      <h1>My Mushrooms</h1>
       <div>Search + Filters</div>
-      <div>Mushroom list</div>
+      <MushroomList />
     </>
   );
 }
