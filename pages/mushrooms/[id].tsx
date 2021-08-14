@@ -16,7 +16,6 @@ export function Mushroom() {
         />
       </ImageWrapper>
       <p>When: June-September</p>
-      <p>Terrain: humid, near Minecraft trees</p>
       <p>Appearance: description of the mushroom</p>
       <p>Recipes</p>
       <ul>
