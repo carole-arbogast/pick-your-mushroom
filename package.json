@@ -20,6 +20,8 @@
     "styled-components": "^5.3.0"
   },
   "devDependencies": {
+    "@commitlint/cli": "^13.1.0",
+    "@commitlint/config-conventional": "^13.1.0",
     "@types/react": "17.0.16",
     "@types/styled-components": "^5.1.12",
     "commitizen": "^4.2.4",
