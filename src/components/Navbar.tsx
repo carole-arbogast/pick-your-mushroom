@@ -4,7 +4,9 @@ import Link from "next/link";
 export function Navbar() {
   return (
     <NavbarWrapper>
-      <Title>Mushrooms</Title>
+      <Title>
+        <Link href="/">Mushrooms</Link>
+      </Title>
       <Navigation>
         <NavigationItem>
           <Link href="/recipes">Recipes</Link>
