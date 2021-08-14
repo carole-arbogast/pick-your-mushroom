@@ -7,7 +7,7 @@ export function ModalBox(props: ModalProps) {
   const { onClose } = props;
 
   return (
-    <ModalBoxWrapper>
+    <ModalBoxWrapper onClick={(e) => e.stopPropagation()}>
       <button onClick={onClose}>X</button>
       {props.children}
     </ModalBoxWrapper>
