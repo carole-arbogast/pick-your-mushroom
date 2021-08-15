@@ -1,6 +1,6 @@
 import React from "react";
 import Modal from "../src/components/Modal";
-import CreateMushroom from "../src/components/Modal/CreateMushroom";
+import CreateMushroom from "../src/components/CreateMushroom";
 import MushroomList from "../src/components/MushroomList";
 
 export function Home() {
