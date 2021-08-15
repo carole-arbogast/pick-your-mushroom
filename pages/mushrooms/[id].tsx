@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import styled from "styled-components";
 
 export function Mushroom() {
@@ -20,7 +21,9 @@ export function Mushroom() {
       <p>Recipes</p>
       <ul>
         <li>Deadly pasta</li>
-        <li>Murderous soup</li>
+        <li>
+          <Link href="/recipes/1">Murderous soup</Link>
+        </li>
       </ul>
       <p>Similar mushrooms: N/A</p>
       <p>Spots: [insert Google map here]</p>
