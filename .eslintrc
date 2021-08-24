@@ -1,4 +1,7 @@
 {
-  "extends": ["next", "next/core-web-vitals", "eslint:recommended"],
-  "env": { "node": true }
+  "extends": ["next", "next/core-web-vitals"],
+  "env": { "node": true },
+  "rules": {
+    "no-unused-vars": 1
+  }
 }
