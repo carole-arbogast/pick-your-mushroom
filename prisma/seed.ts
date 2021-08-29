@@ -1,5 +1,6 @@
-import { Prisma, PrismaClient } from "@prisma/client";
-const prisma = new PrismaClient();
+import { Prisma } from "@prisma/client";
+import { prisma } from "../pages/api/db";
+// const prisma = new PrismaClient();
 
 async function main() {
   const usersData: Prisma.UserCreateManyInput[] = [
