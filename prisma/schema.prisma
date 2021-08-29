@@ -7,7 +7,38 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model User {
+  id       Int        @id @default(autoincrement())
+  username String     @db.VarChar
+  Mushroom Mushroom[]
+}
+
 model Mushroom {
-  name String @db.VarChar
-  id   Int    @unique
+  name            String           @db.VarChar
+  id              Int              @id @default(autoincrement())
+  description     String?          @db.VarChar
+  image           String?          @db.VarChar
+  userId          Int
+  user            User             @relation(fields: [userId], references: [id])
+  mushroomDetails MushroomDetails?
+  Season          Season?
+}
+
+model MushroomDetails {
+  id               Int      @id @default(autoincrement())
+  taste_rating     Int
+  poison_level     Int
+  boiling_required Boolean?
+  dyeing           Boolean?
+  ffa_recommended  Boolean?
+  mushroomId       Int      @unique
+  mushroom         Mushroom @relation(fields: [mushroomId], references: [id])
+}
+
+model Season {
+  id         Int      @id @default(autoincrement())
+  start_date DateTime @db.Date
+  end_date   DateTime @db.Date
+  mushroomId Int      @unique
+  mushroom   Mushroom @relation(fields: [mushroomId], references: [id])
 }
