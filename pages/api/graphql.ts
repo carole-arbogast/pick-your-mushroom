@@ -1,7 +1,7 @@
 import { ApolloServer, gql } from "apollo-server-micro";
 import { mushrooms, mushroom } from "./resolvers";
 
-const typeDefs = gql`
+export const typeDefs = gql`
   type Query {
     mushroom(id: Int!): Mushroom
     mushrooms: [Mushroom!]
@@ -15,7 +15,7 @@ const typeDefs = gql`
   }
 `;
 
-const resolvers = {
+export const resolvers = {
   Query: {
     mushroom,
     mushrooms,

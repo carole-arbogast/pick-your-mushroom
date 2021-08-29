@@ -9,7 +9,8 @@
     "lint": "next lint",
     "commit": "cz",
     "ts-node": "ts-node --compiler-options \"{\\\"module\\\":\\\"commonjs\\\"}\"",
-    "seed": "prisma migrate reset --force"
+    "seed": "prisma migrate reset --force",
+    "test": "jest"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
@@ -31,6 +32,7 @@
   "devDependencies": {
     "@commitlint/cli": "^13.1.0",
     "@commitlint/config-conventional": "^13.1.0",
+    "@types/jest": "^27.0.1",
     "@types/node": "^16.7.3",
     "@types/react": "17.0.16",
     "@types/styled-components": "^5.1.12",
@@ -38,6 +40,7 @@
     "cz-conventional-changelog": "3.3.0",
     "eslint": "7.32.0",
     "eslint-config-next": "11.0.1",
+    "jest": "^27.1.0",
     "prisma": "^2.30.0",
     "ts-node": "^10.2.1",
     "typescript": "4.3.5"
