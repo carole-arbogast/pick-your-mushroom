@@ -1,12 +1,10 @@
 import { ApolloServer, gql } from "apollo-server-micro";
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
+import { mushrooms, mushroom } from "./resolvers";
 
 const typeDefs = gql`
   type Query {
-    mushroom: Mushroom!
-    mushrooms: [Mushroom!]!
+    mushroom(id: Int!): Mushroom
+    mushrooms: [Mushroom!]
   }
   type User {
     name: String
@@ -19,12 +17,8 @@ const typeDefs = gql`
 
 const resolvers = {
   Query: {
-    mushrooms() {
-      return prisma.mushroom.findMany();
-    },
-    mushroom() {
-      return prisma.mushroom.findFirst();
-    },
+    mushroom,
+    mushrooms,
   },
 };
 
