@@ -9,9 +9,19 @@ export const typeDefs = gql`
   type User {
     name: String
   }
+  type MushroomDetails {
+    taste_rating: Int!
+    poison_level: Int!
+    boiling_required: Boolean
+    dyeing: Boolean
+    ffa_recommended: Boolean
+  }
   type Mushroom {
-    name: String
-    category: String
+    id: Int!
+    name: String!
+    description: String
+    image: String
+    mushroomDetails: MushroomDetails
   }
 `;
 
