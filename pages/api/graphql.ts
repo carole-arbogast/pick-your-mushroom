@@ -49,9 +49,9 @@ export const typeDefs = gql`
   }
 
   input CreateMushroomInput {
-    user: Int
     name: String!
     description: String
+    image: String
   }
 
   input UpdateMushroomInput {
