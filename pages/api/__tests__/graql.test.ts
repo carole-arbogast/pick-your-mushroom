@@ -1,22 +1,66 @@
-import { ApolloServer } from "apollo-server-micro";
+import { ApolloServer, gql } from "apollo-server-micro";
 import { typeDefs, resolvers } from "../graphql";
+import { prisma } from "../db";
+import { mushroomDetailsData, mushroomsData } from "../../../prisma/fakeData";
+import { Mushroom, User } from "@prisma/client";
 
 describe("Test suite for GraphQL queries", () => {
   let server: ApolloServer;
+  let mushrooms: Mushroom[];
+  let users: User[];
 
-  beforeEach(() => {
-    server = new ApolloServer({ typeDefs, resolvers });
+  beforeAll(() => {
+    server = new ApolloServer({
+      typeDefs,
+      resolvers,
+    });
   });
 
-  describe("Mushrooms", () => {
+  beforeEach(async () => {
+    await prisma.user.create({
+      data: {
+        username: "Hermione Granger",
+      },
+    });
+    users = await prisma.user.findMany();
+    mushrooms = await Promise.all(
+      mushroomsData.map((mushroom, i) => {
+        const newMushroom = prisma.mushroom.create({
+          data: {
+            ...mushroom,
+            userId: users[0].id,
+            mushroomDetails: {
+              create: {
+                ...mushroomDetailsData[i],
+              },
+            },
+          },
+        });
+        return newMushroom;
+      })
+    );
+  });
+
+  afterEach(async () => {
+    await prisma.mushroomDetails.deleteMany();
+    await prisma.mushroom.deleteMany();
+    await prisma.user.deleteMany();
+  });
+
+  afterAll(async () => {
+    await prisma.$disconnect();
+  });
+
+  describe("getMushrooms", () => {
     it("should return a list of all the mushrooms", async () => {
       const res = await server.executeOperation({
-        query: `query Mushrooms {
+        query: gql`
+          query Mushrooms {
             mushrooms {
-              name, 
+              name
             }
           }
-          `,
+        `,
         variables: { id: 1 },
       });
 
@@ -25,15 +69,16 @@ describe("Test suite for GraphQL queries", () => {
 
     it("should be able to return all the mushrooms' properties", async () => {
       const res = await server.executeOperation({
-        query: `query Mushrooms {
+        query: gql`
+          query Mushrooms {
             mushrooms {
-              id,
-              name, 
-              description, 
+              id
+              name
+              description
               image
             }
           }
-          `,
+        `,
         variables: { id: 1 },
       });
 
@@ -46,32 +91,44 @@ describe("Test suite for GraphQL queries", () => {
     });
   });
 
-  describe("Mushroom(id)", () => {
+  describe("getMushroomById", () => {
     it("should return a single mushroom", async () => {
+      const id = mushrooms[0].id;
       const res = await server.executeOperation({
-        query: `query Mushrooms {
-            mushroom(id: 1) {
+        query: gql`
+          query Mushrooms($id: Int!) {
+            mushroom(id: $id) {
               name
+              mushroomDetails {
+                poison_level
+                taste_rating
+                dyeing
+                ffa_recommended
+                boiling_required
+              }
             }
           }
-          `,
-        variables: { id: 1 },
+        `,
+        variables: { id },
       });
 
       expect(res.data?.mushroom.name).toMatchInlineSnapshot(`"Herkkutatti"`);
     });
 
     it("should be able to return the mushroom's main properties", async () => {
+      const id = mushrooms[0].id;
+
       const res = await server.executeOperation({
-        query: `query Mushroom {
-            mushroom(id: 1) {
-              name, 
-              description, 
+        query: gql`
+          query Mushroom($id: Int!) {
+            mushroom(id: $id) {
+              name
+              description
               image
             }
           }
-          `,
-        variables: { id: 1 },
+        `,
+        variables: { id },
       });
 
       expect(res.data?.mushroom).toMatchObject({
@@ -82,20 +139,23 @@ describe("Test suite for GraphQL queries", () => {
     });
 
     it("should be able to return the mushroom's details", async () => {
+      const id = mushrooms[0].id;
+
       const res = await server.executeOperation({
-        query: `query Mushrooms {
-            mushroom(id: 1) {
+        query: gql`
+          query Mushrooms($id: Int!) {
+            mushroom(id: $id) {
               mushroomDetails {
-                poison_level,
-                taste_rating,
-                dyeing, 
-                ffa_recommended,
+                poison_level
+                taste_rating
+                dyeing
+                ffa_recommended
                 boiling_required
               }
             }
           }
-          `,
-        variables: { id: 1 },
+        `,
+        variables: { id },
       });
 
       expect(res.data?.mushroom.mushroomDetails).toMatchObject({
@@ -106,5 +166,96 @@ describe("Test suite for GraphQL queries", () => {
         boiling_required: expect.any(Boolean),
       });
     });
+  });
+
+  describe("createMushroom", () => {
+    it("should create a new mushroom", async () => {
+      const data = {
+        user: users[0].id,
+        mushroom: {
+          name: "Mushroom",
+          description: "cool mushroom",
+          image: "/link/to/image",
+        },
+        mushroomDetails: { taste_rating: 3, poison_level: 0 },
+      };
+      const res = await server.executeOperation({
+        query: gql`
+          mutation CreateMushroom($data: NestedCreateMushroomInput) {
+            createMushroom(data: $data) {
+              name
+              description
+              image
+            }
+          }
+        `,
+        variables: {
+          data,
+        },
+      });
+      const newMushroom = res.data?.createMushroom;
+
+      expect(newMushroom).toMatchObject({
+        name: data.mushroom.name,
+        description: data.mushroom.description,
+        image: data.mushroom.image,
+      });
+    });
+
+    it("should create the corresponding mushroom details", async () => {
+      const data = {
+        user: users[0].id,
+        mushroom: {
+          name: "Mushroom with details",
+        },
+        mushroomDetails: {
+          taste_rating: 3,
+          poison_level: 3,
+          dyeing: false,
+          ffa_recommended: true,
+          boiling_required: true,
+        },
+      };
+      const res = await server.executeOperation({
+        query: gql`
+          mutation CreateMushroom($data: NestedCreateMushroomInput) {
+            createMushroom(data: $data) {
+              name
+              mushroomDetails {
+                taste_rating
+                poison_level
+                dyeing
+                ffa_recommended
+                boiling_required
+              }
+            }
+          }
+        `,
+        variables: {
+          data,
+        },
+      });
+
+      const mushroomDetails = res.data?.createMushroom.mushroomDetails;
+      const { mushroomDetails: expectedMushroomDetails } = data;
+
+      expect(mushroomDetails).toMatchObject({
+        taste_rating: expectedMushroomDetails.taste_rating,
+        poison_level: expectedMushroomDetails.poison_level,
+        dyeing: expectedMushroomDetails.dyeing,
+        ffa_recommended: expectedMushroomDetails.ffa_recommended,
+        boiling_required: expectedMushroomDetails.boiling_required,
+      });
+    });
+  });
+
+  describe("updateMushroom", () => {
+    it.todo("should update a mushroom");
+    it.todo("should update the corresponding mushroom details");
+  });
+
+  describe("deleteMushroom", () => {
+    it.todo("should delete a mushroom");
+    it.todo("should delete the corresponding mushroom information");
   });
 });
