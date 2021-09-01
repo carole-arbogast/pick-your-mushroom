@@ -25,14 +25,17 @@ interface ICreateMushroom {
 export const createMushroom = async (_: undefined, args: ICreateMushroom) => {
   const { mushroom, mushroomDetails, user } = args.data;
 
-  return prisma.mushroom.create({
+  return await prisma.mushroom.create({
     data: {
       name: mushroom.name,
+      description: mushroom.description,
+      image: mushroom.image,
       userId: user,
       mushroomDetails: {
         create: { ...mushroomDetails },
       },
     },
+    include: { mushroomDetails: true },
   });
 };
 
