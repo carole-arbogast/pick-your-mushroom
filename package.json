@@ -10,7 +10,8 @@
     "commit": "cz",
     "ts-node": "ts-node --compiler-options \"{\\\"module\\\":\\\"commonjs\\\"}\"",
     "seed": "prisma migrate reset --force",
-    "test": "jest"
+    "test": "jest",
+    "generate": "graphql-codegen --config codegen.yml"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
@@ -32,6 +33,7 @@
   "devDependencies": {
     "@commitlint/cli": "^13.1.0",
     "@commitlint/config-conventional": "^13.1.0",
+    "@graphql-codegen/cli": "2.1.1",
     "@types/jest": "^27.0.1",
     "@types/node": "^16.7.3",
     "@types/react": "17.0.16",
@@ -44,7 +46,10 @@
     "jest": "^27.1.0",
     "prisma": "^2.30.0",
     "ts-node": "^10.2.1",
-    "typescript": "4.3.5"
+    "typescript": "4.3.5",
+    "@graphql-codegen/typescript": "2.1.2",
+    "@graphql-codegen/typescript-resolvers": "2.1.2",
+    "@graphql-codegen/typescript-operations": "2.1.2"
   },
   "resolutions": {
     "styled-components": "^5"
