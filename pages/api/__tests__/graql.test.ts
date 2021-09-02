@@ -250,12 +250,142 @@ describe("Test suite for GraphQL queries", () => {
   });
 
   describe("updateMushroom", () => {
-    it.todo("should update a mushroom");
-    it.todo("should update the corresponding mushroom details");
+    it("should update a mushroom", async () => {
+      const id = mushrooms[0].id;
+
+      const data = {
+        mushroom: {
+          name: "Updated Mushroom",
+          description: "Updated description",
+          image: "Updated image",
+        },
+      };
+
+      const res = await server.executeOperation({
+        query: gql`
+          mutation UpdateMushroom($id: Int!, $data: NestedUpdateMushroomInput) {
+            updateMushroom(id: $id, data: $data) {
+              name
+              description
+              image
+            }
+          }
+        `,
+        variables: {
+          data,
+          id,
+        },
+      });
+
+      const updatedMushroom = res.data?.updateMushroom;
+
+      expect(updatedMushroom).toMatchInlineSnapshot(`
+Object {
+  "description": "Updated description",
+  "image": "Updated image",
+  "name": "Updated Mushroom",
+}
+`);
+    });
+    it("should update the corresponding mushroom details", async () => {
+      const id = mushrooms[0].id;
+
+      const data = {
+        mushroomDetails: {
+          poison_level: 4,
+          taste_rating: 4,
+          dyeing: true,
+          ffa_recommended: false,
+          boiling_required: false,
+        },
+      };
+
+      const res = await server.executeOperation({
+        query: gql`
+          mutation UpdateMushroom($id: Int!, $data: NestedUpdateMushroomInput) {
+            updateMushroom(id: $id, data: $data) {
+              mushroomDetails {
+                taste_rating
+                poison_level
+                dyeing
+                ffa_recommended
+                boiling_required
+              }
+            }
+          }
+        `,
+        variables: {
+          data,
+          id,
+        },
+      });
+
+      const updatedMushroom = res.data?.updateMushroom;
+      console.log(updatedMushroom);
+
+      expect(updatedMushroom.mushroomDetails).toMatchInlineSnapshot(`
+Object {
+  "boiling_required": false,
+  "dyeing": true,
+  "ffa_recommended": false,
+  "poison_level": 4,
+  "taste_rating": 4,
+}
+`);
+    });
   });
 
   describe("deleteMushroom", () => {
-    it.todo("should delete a mushroom");
-    it.todo("should delete the corresponding mushroom information");
+    it("should delete a mushroom", async () => {
+      const id = mushrooms[0].id;
+
+      const res = await server.executeOperation({
+        query: gql`
+          mutation DeleteMushroom($id: Int!) {
+            deleteMushroom(id: $id) {
+              id
+            }
+          }
+        `,
+        variables: {
+          id,
+        },
+      });
+
+      const deletedMushroom = await prisma.mushroom.findUnique({
+        where: { id },
+      });
+
+      expect(deletedMushroom).toBeNull();
+      expect(res.data?.deleteMushroom.id).toEqual(id);
+    });
+    it("should delete the corresponding mushroom information", async () => {
+      const id = mushrooms[0].id;
+
+      const originalMushroomDetails = await prisma.mushroomDetails.findUnique({
+        where: { mushroomId: id },
+      });
+
+      expect(originalMushroomDetails).toBeDefined();
+
+      await server.executeOperation({
+        query: gql`
+          mutation DeleteMushroom($id: Int!) {
+            deleteMushroom(id: $id) {
+              id
+            }
+          }
+        `,
+        variables: {
+          id,
+        },
+      });
+
+      const deletedMushroomDetails = await prisma.mushroomDetails.findUnique({
+        where: { mushroomId: id },
+      });
+
+      expect(deletedMushroomDetails).toBeNull();
+    });
   });
 });

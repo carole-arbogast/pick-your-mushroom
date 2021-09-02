@@ -24,6 +24,7 @@ export const typeDefs = gql`
   }
 
   type MushroomDetails {
+    id: Int!
     taste_rating: Int!
     poison_level: Int!
     boiling_required: Boolean
@@ -57,6 +58,7 @@ export const typeDefs = gql`
   input UpdateMushroomInput {
     name: String
     description: String
+    image: String
     mushroomDetails: MushroomDetailsInput
   }
 
