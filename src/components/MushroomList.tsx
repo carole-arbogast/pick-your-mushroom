@@ -2,12 +2,22 @@ import styled from "styled-components";
 
 import MushroomCard from "./MushroomCard";
 
-export function MushroomList() {
+interface Props {
+  mushrooms: { name: string }[];
+}
+
+export function MushroomList(props: Props) {
+  const { mushrooms } = props;
+  console.log(mushrooms);
+
   return (
     <>
       <FlexWrapper>
-        <MushroomCard />
-        <MushroomCard />
+        {mushrooms.map((mushroom) => (
+          <p key="mushroom">{mushroom.name}</p>
+        ))}
+        {/* <MushroomCard />
+        <MushroomCard /> */}
       </FlexWrapper>
     </>
   );

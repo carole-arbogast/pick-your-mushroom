@@ -1,6 +1,7 @@
 import { ApolloServer, gql } from "apollo-server-micro";
-import { typeDefs, resolvers } from "../graphql";
-import { prisma } from "../db";
+import { typeDefs } from "../../../src/graphql/schema";
+import { resolvers } from "../graphql";
+import { prisma } from "../../../prisma/db";
 import { mushroomDetailsData, mushroomsData } from "../../../prisma/fakeData";
 import { Mushroom, User } from "@prisma/client";
 

@@ -1,5 +1,5 @@
 import { Prisma } from "@prisma/client";
-import { prisma } from "./db";
+import { prisma } from "../../prisma/db";
 
 export const getMushrooms = () => {
   return prisma.mushroom.findMany();
