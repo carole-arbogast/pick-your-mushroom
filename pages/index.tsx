@@ -1,6 +1,5 @@
 import { request } from "graphql-request";
 
-import CreateMushroom from "../src/components/CreateMushroom";
 import Modal from "../src/components/Modal";
 import MushroomList from "../src/components/MushroomList";
 import React from "react";
@@ -8,7 +7,7 @@ import useSWR from "swr";
 import { getAllMushrooms } from "../src/graphql/queries";
 import { Mushroom } from "../src/generated/graphql";
 import Page from "../src/components/layouts/Page";
-import { Button } from "../src/components/layouts/Button";
+import MushroomLogosLegend from "../src/components/MushroomLogosLegend";
 
 export function Home() {
   const [isModalOpen, setIsModalOpen] = React.useState(false);
@@ -32,28 +31,34 @@ export function Home() {
   }
 
   if (!data || !data.mushrooms) {
-    console.log("LOADING");
     return <div>Loading</div>;
   }
 
   return (
     <Page>
       <p>
-        Here you can find information about your favorite mushrooms. The
-        descriptions are based on [insert book name + link].
+        Here you can find information about mushrooms that can be found in
+        Finland.
       </p>
-      <p>This is work in progress. Coming up: </p>
+      <p>
+        The descriptions are based on the mushroom guide{" "}
+        <em>SIENIOPAS - Taskukirja sienten tunnistukseen</em> by Jarkko
+        Korhonen.
+      </p>
+      <p>This is a work in progress. Coming up: </p>
       <ul>
+        <li>Adding your own mushrooms</li>
         <li>Filtering mushrooms by edibility, season and location</li>
         <li>Store your recipes </li>
         <li>Save the location of your best, top secret mushroom spots</li>
       </ul>
       {isModalOpen && (
         <Modal onClose={() => setIsModalOpen(false)}>
-          <CreateMushroom />
+          <MushroomLogosLegend />
         </Modal>
       )}
-      <Button onClick={() => setIsModalOpen(true)}>Add a mushroom</Button>
+      <h2>Mushroom list</h2>
+      {/* <Button onClick={() => setIsModalOpen(true)}>Add a mushroom</Button> */}
       <MushroomList mushrooms={data.mushrooms} />
     </Page>
   );

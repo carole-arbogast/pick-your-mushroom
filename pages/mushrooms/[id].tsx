@@ -58,7 +58,11 @@ export function MushroomPage() {
 
           <Description>
             {data.mushroom.mushroomDetails && (
-              <MushroomLogos mushroomDetails={data.mushroom.mushroomDetails} />
+              <Edibility>
+                <MushroomLogos
+                  mushroomDetails={data.mushroom.mushroomDetails}
+                />
+              </Edibility>
             )}
             <h3>Description</h3>
             <p>{data.mushroom?.description}</p>
@@ -94,13 +98,20 @@ const MushroomInfo = styled.div`
   margin-right: 2rem;
 `;
 
+const Edibility = styled.div`
+  align-self: flex-start;
+`;
+
 const Main = styled.div`
   display: flex;
   flex-direction: column;
   margin-right: 2rem;
 `;
 
-const Description = styled.div``;
+const Description = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 
 const SideBox = styled.div`
   align-self: center;
