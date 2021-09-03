@@ -17,14 +17,10 @@ export function Navbar() {
         <Link href="/" passHref>
           <Title>🍄 Pick your mushroom 🍄</Title>
         </Link>
-        <Link
-          href="https://github.com/carole-arbogast/pick-your-mushroom"
-          passHref
-        >
-          <Github>
-            <FontAwesomeIcon icon={faGithub} size="2x" />
-          </Github>
-        </Link>
+
+        <Github href="https://github.com/carole-arbogast/pick-your-mushroom">
+          <FontAwesomeIcon icon={faGithub} size="2x" />
+        </Github>
       </Container>
     </NavbarWrapper>
   );
@@ -67,8 +63,9 @@ const NavbarWrapper = styled.nav`
   color: white;
 `;
 
-const Github = styled.div`
+const Github = styled.a`
   cursor: pointer;
+  color: white;
   &:hover {
     color: #e0dddd;
   }
