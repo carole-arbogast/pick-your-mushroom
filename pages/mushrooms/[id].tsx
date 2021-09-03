@@ -6,8 +6,6 @@ import { Mushroom } from "../../src/generated/graphql";
 import useSWR from "swr";
 import { useRouter } from "next/router";
 import MushroomLogos from "../../src/components/MushroomLogos";
-import { faEdit } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Page from "../../src/components/layouts/Page";
 import MushroomLogosLegend from "../../src/components/MushroomLogosLegend";
 

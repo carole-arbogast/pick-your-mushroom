@@ -23,8 +23,6 @@ export function Home() {
     fetcher
   );
 
-  console.log("data", data, "data.mushroom", data?.mushrooms);
-
   if (error) {
     console.log("ERROR", error);
     return <div>Error</div>;
