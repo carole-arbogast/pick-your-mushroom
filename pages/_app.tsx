@@ -1,3 +1,5 @@
+import "@fortawesome/fontawesome-svg-core/styles.css";
+
 import type { AppProps } from "next/app";
 import Navbar from "../src/components/Navbar";
 import { GlobalStyle } from "../src/shared/globalStyle";
