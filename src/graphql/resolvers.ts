@@ -2,7 +2,7 @@ import { Prisma } from "@prisma/client";
 import { prisma } from "../../prisma/db";
 
 export const getMushrooms = () => {
-  return prisma.mushroom.findMany();
+  return prisma.mushroom.findMany({ include: { mushroomDetails: true } });
 };
 
 export const getMushroomById = async (_: undefined, args: { id: number }) => {

@@ -1,29 +1,27 @@
-import { gql, request } from "graphql-request";
+import { request } from "graphql-request";
 
 import CreateMushroom from "../src/components/CreateMushroom";
 import Modal from "../src/components/Modal";
 import MushroomList from "../src/components/MushroomList";
 import React from "react";
 import useSWR from "swr";
+import { getAllMushrooms } from "../src/graphql/queries";
+import { Mushroom } from "../src/generated/graphql";
 
 export function Home() {
   const [isModalOpen, setIsModalOpen] = React.useState(false);
 
-  const getMushroomsQuery = `{
-    mushrooms {
-      name
-      description
-    }
-  }`;
+  const fetcher = () => request("/api/graphql", getAllMushrooms);
 
-  const fetcher = (query) => request("/api/graphql", query);
+  interface Result {
+    mushrooms: Mushroom[];
+  }
 
-  const { data, error } = useSWR(getMushroomsQuery, fetcher);
-
-  console.log(data, error);
+  const { data, error } = useSWR<Result>("/api/graphql", fetcher);
 
   return (
     <>
+      {error && <div>Oops</div>}
       <h1>My Mushrooms</h1>
       <div>Search + Filters</div>
       {isModalOpen && (
@@ -32,7 +30,7 @@ export function Home() {
         </Modal>
       )}
       <button onClick={() => setIsModalOpen(true)}>Add mushroom</button>
-      {data && <MushroomList mushrooms={data.mushrooms} />}
+      {data?.mushrooms && <MushroomList mushrooms={data.mushrooms} />}
     </>
   );
 }

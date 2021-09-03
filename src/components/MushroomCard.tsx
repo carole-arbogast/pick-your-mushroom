@@ -1,18 +1,31 @@
 import styled from "styled-components";
 import Image from "next/image";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSkullCrossbones } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
+import { Mushroom } from "../generated/graphql";
+import MushroomLogos from "./MushroomLogos";
 
-export function MushroomCard() {
+interface Props {
+  mushroom: Mushroom;
+}
+
+export function MushroomCard(props: Props) {
+  const { mushroom } = props;
+
   return (
     <CardWrapper>
       <CardHeader>
-        <h2>Mushroom name</h2>
-        <FontAwesomeIcon icon={faSkullCrossbones} />
+        <h2>{mushroom.name}</h2>
+        {mushroom.mushroomDetails && (
+          <MushroomLogos mushroomDetails={mushroom.mushroomDetails} />
+        )}
         <ImageWrapper>
           <Image
-            src="https://res.cloudinary.com/carole-arbogast/image/upload/v1628941731/800px-Amanita_muscaria__fly_agaric_c0od7x.jpg"
+            src={
+              mushroom.image
+                ? mushroom.image
+                : // FIXME add a better placeholder image
+                  "https://res.cloudinary.com/carole-arbogast/image/upload/v1628941731/800px-Amanita_muscaria__fly_agaric_c0od7x.jpg"
+            }
             alt="mushroom-name"
             width={200}
             height={200}
@@ -20,9 +33,8 @@ export function MushroomCard() {
           />
         </ImageWrapper>
       </CardHeader>
-      <p>When: July-September</p>
-      <p>Spots: 2</p>
-      <Link href="/mushrooms/1"> View More </Link>
+      <p>{mushroom.description}</p>
+      <Link href={`/mushrooms/${mushroom.id}`}> View More </Link>
     </CardWrapper>
   );
 }

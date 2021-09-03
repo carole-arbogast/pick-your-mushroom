@@ -1,5 +1,5 @@
 import { Prisma } from "@prisma/client";
-import { prisma } from "../pages/api/db";
+import { prisma } from "./db";
 // const prisma = new PrismaClient();
 
 async function main() {
@@ -17,9 +17,19 @@ async function main() {
       name: "Herkkutatti",
       userId: users[0].id,
       description: "Rounded cap, green sponge, delicious",
-      image: "/link/to/image",
+      image:
+        "https://res.cloudinary.com/carole-arbogast/image/upload/v1630599065/herkkutatti_wvv5dd.jpg",
     },
-    { name: "Suppilovahvero", userId: users[1].id },
+    {
+      name: "Suppilovahvero",
+      image:
+        "https://res.cloudinary.com/carole-arbogast/image/upload/v1630599066/suppilovahvero_ndbna0.jpg",
+      userId: users[1].id,
+    },
+    {
+      name: "Test Mushroom",
+      userId: users[1].id,
+    },
   ];
 
   await prisma.mushroom.createMany({ data: mushroomsData });
@@ -41,6 +51,14 @@ async function main() {
       dyeing: false,
       ffa_recommended: true,
       boiling_required: false,
+    },
+    {
+      mushroomId: mushrooms[2].id,
+      taste_rating: 0,
+      poison_level: 2,
+      dyeing: true,
+      ffa_recommended: false,
+      boiling_required: true,
     },
   ];
 

@@ -1,23 +1,24 @@
+import React from "react";
 import styled from "styled-components";
+import { Mushroom } from "../generated/graphql";
 
 import MushroomCard from "./MushroomCard";
 
 interface Props {
-  mushrooms: { name: string }[];
+  mushrooms: Mushroom[];
 }
 
 export function MushroomList(props: Props) {
   const { mushrooms } = props;
-  console.log(mushrooms);
 
   return (
     <>
       <FlexWrapper>
         {mushrooms.map((mushroom) => (
-          <p key="mushroom">{mushroom.name}</p>
+          <React.Fragment key="mushroom.id">
+            <MushroomCard mushroom={mushroom} />
+          </React.Fragment>
         ))}
-        {/* <MushroomCard />
-        <MushroomCard /> */}
       </FlexWrapper>
     </>
   );

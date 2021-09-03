@@ -108,7 +108,7 @@ export type User = {
 export type MushroomsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type MushroomsQuery = { __typename?: 'Query', mushrooms?: Maybe<Array<{ __typename?: 'Mushroom', name: string }>> };
+export type MushroomsQuery = { __typename?: 'Query', mushrooms?: Maybe<Array<{ __typename: 'Mushroom', name: string }>> };
 
 
 
