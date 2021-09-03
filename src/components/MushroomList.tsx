@@ -1,8 +1,7 @@
+import { Mushroom } from "../generated/graphql";
+import MushroomCard from "./MushroomCard";
 import React from "react";
 import styled from "styled-components";
-import { Mushroom } from "../generated/graphql";
-
-import MushroomCard from "./MushroomCard";
 
 interface Props {
   mushrooms: Mushroom[];
@@ -25,7 +24,10 @@ export function MushroomList(props: Props) {
 }
 
 const FlexWrapper = styled.div`
+  margin: 1rem;
   display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
 `;
 
 export default MushroomList;

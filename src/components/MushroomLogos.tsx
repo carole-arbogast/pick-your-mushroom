@@ -1,41 +1,65 @@
-import { MushroomDetails } from "../generated/graphql";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPalette } from "@fortawesome/free-solid-svg-icons";
-import { faTemperatureHigh } from "@fortawesome/free-solid-svg-icons";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
-import { faSquare } from "@fortawesome/free-solid-svg-icons";
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import {
+  faPalette,
   faSkullCrossbones,
+  faSquare,
+  faStar,
+  faTemperatureHigh,
+  faTimes,
   faUtensils,
 } from "@fortawesome/free-solid-svg-icons";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { MushroomDetails } from "../generated/graphql";
+import styled from "styled-components";
 
 interface Props {
   mushroomDetails: MushroomDetails;
 }
 
+const StyledFontawesomeIcon = styled(FontAwesomeIcon)`
+  padding: 0.25rem;
+`;
+
 const logosMap = {
-  dyeing: <FontAwesomeIcon icon={faPalette} />,
-  boiling_required: <FontAwesomeIcon icon={faTemperatureHigh} />,
-  ffa_recommended: <FontAwesomeIcon icon={faUtensils} />,
+  dyeing: <StyledFontawesomeIcon icon={faPalette} color={"purple"} />,
+  boiling_required: (
+    <StyledFontawesomeIcon icon={faTemperatureHigh} color="orange" />
+  ),
+  ffa_recommended: <StyledFontawesomeIcon icon={faUtensils} color="green" />,
   poison_level: {
-    1: <FontAwesomeIcon icon={faTimes} />,
+    1: <StyledFontawesomeIcon icon={faTimes} color="#d61609" />,
     2: new Array(1)
       .fill(null)
-      .map((_, i) => <FontAwesomeIcon key={i} icon={faSkullCrossbones} />),
+      .map((_, i) => (
+        <StyledFontawesomeIcon
+          key={i}
+          icon={faSkullCrossbones}
+          color="#d61609"
+        />
+      )),
     3: new Array(2)
       .fill(null)
-      .map((_, i) => <FontAwesomeIcon key={i} icon={faSkullCrossbones} />),
+      .map((_, i) => (
+        <StyledFontawesomeIcon
+          key={i}
+          icon={faSkullCrossbones}
+          color="#d61609"
+        />
+      )),
   },
   taste_rating: {
-    0: <FontAwesomeIcon icon={faSquare} />,
-    1: <FontAwesomeIcon icon={faStar} />,
+    0: <StyledFontawesomeIcon icon={faSquare} color="grey" />,
+    1: <StyledFontawesomeIcon icon={faStar} color="gold" />,
     2: new Array(2)
       .fill(null)
-      .map((_, i) => <FontAwesomeIcon key={i} icon={faStar} />),
+      .map((_, i) => (
+        <StyledFontawesomeIcon key={i} icon={faStar} color="gold" />
+      )),
     3: new Array(3)
       .fill(null)
-      .map((_, i) => <FontAwesomeIcon key={i} icon={faStar} />),
+      .map((_, i) => (
+        <StyledFontawesomeIcon key={i} icon={faStar} color="gold" />
+      )),
   },
 };
 
@@ -43,17 +67,25 @@ export function MushroomLogos(props: Props) {
   const { mushroomDetails } = props;
   const { dyeing, boiling_required, ffa_recommended } = mushroomDetails;
 
-  console.log(mushroomDetails);
   return (
-    <div>
+    <Wrapper>
       {dyeing && logosMap.dyeing}
       {boiling_required && logosMap.boiling_required}
       {ffa_recommended && logosMap.ffa_recommended}
       {mushroomDetails.poison_level > 0 &&
         logosMap.poison_level[mushroomDetails.poison_level]}
       {logosMap.taste_rating[mushroomDetails.taste_rating]}
-    </div>
+    </Wrapper>
   );
 }
+
+const Wrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  border: 1px grey solid;
+  border-radius: 3px;
+  margin-top: 0.5rem;
+  background: white;
+`;
 
 export default MushroomLogos;

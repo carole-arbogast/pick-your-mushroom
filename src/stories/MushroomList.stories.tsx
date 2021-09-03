@@ -9,13 +9,13 @@ export default {
   title: "Components/MushroomList",
 } as Meta;
 
-const mushroom: Mushroom[] = [
-  {
-    id: 1,
-    name: "Mushroom Name",
-    description: "This is a description of the mushroom's properties.",
-    userId: 1,
-  },
-];
+const mushroom: Mushroom = {
+  id: 1,
+  name: "Mushroom Name",
+  description: "This is a description of the mushroom's properties.",
+  userId: 1,
+};
 
-export const Main: React.VFC<{}> = () => <MushroomList mushrooms={mushroom} />;
+const mushrooms = new Array(10).fill(null).map(() => mushroom);
+
+export const Main: React.VFC<{}> = () => <MushroomList mushrooms={mushrooms} />;
