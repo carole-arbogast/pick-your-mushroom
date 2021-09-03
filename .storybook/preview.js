@@ -1,4 +1,16 @@
 import * as nextImage from "next/image";
+import React from "react";
+
+import { GlobalStyle } from "../src/shared/globalStyle";
+
+export const decorators = [
+  (Story) => (
+    <>
+      <GlobalStyle />
+      <Story />
+    </>
+  ),
+];
 
 Object.defineProperty(nextImage, "default", {
   configurable: true,
@@ -13,4 +25,5 @@ export const parameters = {
       date: /Date$/,
     },
   },
+  layout: "fullscreen",
 };
