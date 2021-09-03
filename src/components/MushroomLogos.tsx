@@ -48,7 +48,6 @@ const logosMap = {
       )),
   },
   taste_rating: {
-    0: <StyledFontawesomeIcon icon={faSquare} color="grey" />,
     1: <StyledFontawesomeIcon icon={faStar} color="gold" />,
     2: new Array(2)
       .fill(null)
@@ -61,20 +60,29 @@ const logosMap = {
         <StyledFontawesomeIcon key={i} icon={faStar} color="gold" />
       )),
   },
+  worthless_mushroom: <StyledFontawesomeIcon icon={faSquare} color="grey" />,
 };
 
 export function MushroomLogos(props: Props) {
   const { mushroomDetails } = props;
-  const { dyeing, boiling_required, ffa_recommended } = mushroomDetails;
+  const {
+    dyeing,
+    boiling_required,
+    ffa_recommended,
+    poison_level,
+    taste_rating,
+  } = mushroomDetails;
+
+  const isWorthlessMushroom = taste_rating === 0 && poison_level === 0;
 
   return (
     <Wrapper>
       {dyeing && logosMap.dyeing}
       {boiling_required && logosMap.boiling_required}
       {ffa_recommended && logosMap.ffa_recommended}
-      {mushroomDetails.poison_level > 0 &&
-        logosMap.poison_level[mushroomDetails.poison_level]}
-      {logosMap.taste_rating[mushroomDetails.taste_rating]}
+      {logosMap.poison_level[poison_level]}
+      {logosMap.taste_rating[taste_rating]}
+      {isWorthlessMushroom && logosMap.worthless_mushroom}
     </Wrapper>
   );
 }
