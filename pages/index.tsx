@@ -27,8 +27,8 @@ export function Home() {
   console.log("data", data, "data.mushroom", data?.mushrooms);
 
   if (error) {
-    console.log("ERROR");
-    return <div>Error: {error}</div>;
+    console.log("ERROR", error);
+    return <div>Error</div>;
   }
 
   if (!data || !data.mushrooms) {

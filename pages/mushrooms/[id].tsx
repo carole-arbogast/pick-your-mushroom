@@ -27,6 +27,7 @@ export function MushroomPage() {
   );
 
   if (error) {
+    console.log("ERROR", error);
     return <div>Error</div>;
   }
   if (!data || !data.mushroom) {
