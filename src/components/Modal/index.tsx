@@ -6,13 +6,16 @@ import ModalBox from "./ModalBox";
 export interface ModalProps {
   children: React.ReactNode;
   onClose: () => void;
+  header?: React.ReactNode;
 }
 
 export function Modal(props: ModalProps) {
-  const { onClose, children } = props;
+  const { onClose, children, header } = props;
   return (
     <ModalBase onClose={onClose}>
-      <ModalBox onClose={onClose}>{children}</ModalBox>
+      <ModalBox onClose={onClose} header={header}>
+        {children}
+      </ModalBox>
     </ModalBase>
   );
 }

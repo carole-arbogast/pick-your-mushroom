@@ -4,19 +4,39 @@ import { ModalProps } from "./index";
 import styled from "styled-components";
 
 export function ModalBox(props: ModalProps) {
-  const { onClose } = props;
+  const { children, onClose, header } = props;
 
   return (
     <ModalBoxWrapper onClick={(e) => e.stopPropagation()}>
-      <button onClick={onClose}>X</button>
-      {props.children}
+      <Header>
+        {header}
+        <CrossButton onClick={onClose}>X</CrossButton>
+      </Header>
+
+      {children}
     </ModalBoxWrapper>
   );
 }
 
 const ModalBoxWrapper = styled.div`
   background: white;
-  padding: 0.5rem;
+  padding: 1.5rem;
+  border-radius: 3px;
+`;
+
+const Header = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+`;
+
+const CrossButton = styled.button`
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 700;
 `;
 
 export default ModalBox;
