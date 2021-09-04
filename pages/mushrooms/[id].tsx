@@ -29,7 +29,11 @@ export function MushroomPage() {
     return <div>Error</div>;
   }
   if (!data || !data.mushroom) {
-    return <div>Loading</div>;
+    return (
+      <Page>
+        <LoadingText>The mushrooms are loading, please wait</LoadingText>
+      </Page>
+    );
   }
   return (
     <Page>
@@ -124,6 +128,11 @@ const Header = styled.div`
 const ImageWrapper = styled.div`
   width: 15em;
   height: auto;
+`;
+
+const LoadingText = styled.p`
+  text-align: center;
+  margin-top: 4rem;
 `;
 
 export default MushroomPage;
