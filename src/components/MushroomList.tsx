@@ -17,7 +17,7 @@ export function MushroomList(props: Props) {
           <div>No mushrooms found.</div>
         ) : (
           mushrooms.map((mushroom) => (
-            <React.Fragment key="mushroom.id">
+            <React.Fragment key={mushroom.id}>
               <MushroomCard mushroom={mushroom} />
             </React.Fragment>
           ))
