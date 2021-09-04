@@ -1,10 +1,18 @@
 import { SubmitHandler, useForm } from "react-hook-form";
-
-import styled from "styled-components";
+import { Button } from "./layouts/Button";
+import {
+  FieldGroup,
+  TextArea,
+  Form,
+  Required,
+  Label,
+  Select,
+} from "./layouts/forms";
 
 type Inputs = {
   name: string;
-  edible: string;
+  taste: number;
+  toxicity: number;
   season: string[];
   description?: string;
   image?: string;
@@ -21,44 +29,56 @@ export function CreateMushroom() {
     console.log("submitting mushroom", data);
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
-      <label>Name</label>
-      <input {...register("name", { required: true })}></input>
+    <>
+      <h2>Create a new mushroom</h2>
+      <Form onSubmit={handleSubmit(onSubmit)}>
+        <FieldGroup>
+          <Label>
+            Name <Required>*</Required>
+          </Label>
+          <input {...register("name", { required: true })}></input>
+        </FieldGroup>
 
-      <label>Image Link</label>
-      <input {...register("image")}></input>
+        <FieldGroup>
+          <Label>
+            Taste <Required>*</Required>
+          </Label>
+          <Select defaultValue={0} {...register("taste")}>
+            <option value={0}>Non edible</option>
+            <option value={1}>Edible</option>
+            <option value={2}>Good</option>
+            <option value={3}>Delicious</option>
+          </Select>
+        </FieldGroup>
 
-      <label>Edible/poisonous</label>
-      <select defaultValue="edible" {...register("edible")}>
-        <option value="delicious">Delicious</option>
-        <option value="edible">Edible</option>
-        <option value="poisonous">Poisonous</option>
-      </select>
+        <FieldGroup>
+          <Label>
+            Toxicity <Required>*</Required>
+          </Label>
+          <Select defaultValue={0} {...register("toxicity")}>
+            <option value={0}>Non toxic</option>
+            <option value={1}>Toxic</option>
+            <option value={2}>Dangerously toxic</option>
+            <option value={3}>Deadly</option>
+          </Select>
+        </FieldGroup>
 
-      <label>Season</label>
+        <FieldGroup>
+          <Label>Image (insert a link)</Label>
+          <input {...register("image")}></input>
+        </FieldGroup>
 
-      <label>July</label>
-      <input type="checkbox" {...register("season")} value="july"></input>
+        <FieldGroup>
+          <Label>Description</Label>
+          <TextArea {...register("description")}></TextArea>
+        </FieldGroup>
 
-      <label>August</label>
-      <input type="checkbox" {...register("season")} value="august"></input>
+        {errors.name && <span>This field is required</span>}
 
-      <label>September</label>
-      <input type="checkbox" {...register("season")} value="june"></input>
-
-      <label>Description</label>
-      <textarea {...register("description")}></textarea>
-
-      {errors.name && <span>This field is required</span>}
-
-      <input type="submit" />
-    </Form>
+        <Button type="submit">Submit</Button>
+      </Form>
+    </>
   );
 }
-
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-`;
 
 export default CreateMushroom;
