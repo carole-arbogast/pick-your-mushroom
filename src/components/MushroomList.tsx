@@ -13,11 +13,15 @@ export function MushroomList(props: Props) {
   return (
     <>
       <FlexWrapper>
-        {mushrooms.map((mushroom) => (
-          <React.Fragment key="mushroom.id">
-            <MushroomCard mushroom={mushroom} />
-          </React.Fragment>
-        ))}
+        {mushrooms.length === 0 ? (
+          <div>No mushrooms found.</div>
+        ) : (
+          mushrooms.map((mushroom) => (
+            <React.Fragment key="mushroom.id">
+              <MushroomCard mushroom={mushroom} />
+            </React.Fragment>
+          ))
+        )}
       </FlexWrapper>
     </>
   );

@@ -19,3 +19,5 @@ const mushroom: Mushroom = {
 const mushrooms = new Array(10).fill(null).map(() => mushroom);
 
 export const Main: React.VFC<{}> = () => <MushroomList mushrooms={mushrooms} />;
+
+export const EmptyList: React.VFC<{}> = () => <MushroomList mushrooms={[]} />;
