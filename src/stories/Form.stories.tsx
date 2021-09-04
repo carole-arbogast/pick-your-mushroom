@@ -7,12 +7,11 @@ import {
   TextArea,
 } from "../components/layouts/forms";
 
-import { CreateMushroom } from "../components/CreateMushroom";
 import { Meta } from "@storybook/react";
 import React from "react";
 
 export default {
-  component: CreateMushroom,
+  component: Form,
   title: "Components | Layouts/Form",
 } as Meta;
 
