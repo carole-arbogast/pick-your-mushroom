@@ -35,3 +35,11 @@ export const getMushroomById = gql`
     }
   }
 `;
+
+export const createMushroom = gql`
+  mutation CreateMushroom($data: NestedCreateMushroomInput) {
+    createMushroom(data: $data) {
+      name
+    }
+  }
+`;

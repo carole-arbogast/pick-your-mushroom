@@ -7,7 +7,8 @@ import useSWR from "swr";
 import { getAllMushrooms } from "../src/graphql/queries";
 import { Mushroom } from "../src/generated/graphql";
 import Page from "../src/components/layouts/Page";
-import MushroomLogosLegend from "../src/components/MushroomLogosLegend";
+import { Button } from "../src/components/layouts/Button";
+import CreateMushroom from "../src/components/CreateMushroom";
 
 export function Home() {
   const [isModalOpen, setIsModalOpen] = React.useState(false);
@@ -51,12 +52,15 @@ export function Home() {
         <li>Save the location of your best, top secret mushroom spots</li>
       </ul>
       {isModalOpen && (
-        <Modal onClose={() => setIsModalOpen(false)}>
-          <MushroomLogosLegend />
+        <Modal
+          header={<h2>Create a new mushroom</h2>}
+          onClose={() => setIsModalOpen(false)}
+        >
+          <CreateMushroom onClose={() => setIsModalOpen(false)} />
         </Modal>
       )}
       <h2>Mushroom list</h2>
-      {/* <Button onClick={() => setIsModalOpen(true)}>Add a mushroom</Button> */}
+      <Button onClick={() => setIsModalOpen(true)}>Add a mushroom</Button>
       <MushroomList mushrooms={data.mushrooms} />
     </Page>
   );

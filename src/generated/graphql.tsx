@@ -72,7 +72,7 @@ export type MutationDeleteMushroomArgs = {
 
 export type NestedCreateMushroomInput = {
   mushroom?: Maybe<CreateMushroomInput>;
-  mushroomDetails?: Maybe<MushroomDetailsInput>;
+  mushroomDetails: MushroomDetailsInput;
   user: Scalars['Int'];
 };
 
@@ -108,7 +108,21 @@ export type User = {
 export type MushroomsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type MushroomsQuery = { __typename?: 'Query', mushrooms?: Maybe<Array<{ __typename: 'Mushroom', name: string }>> };
+export type MushroomsQuery = { __typename?: 'Query', mushrooms?: Maybe<Array<{ __typename?: 'Mushroom', id: number, name: string, description?: Maybe<string>, image?: Maybe<string>, mushroomDetails?: Maybe<{ __typename?: 'MushroomDetails', poison_level: number, taste_rating: number, dyeing?: Maybe<boolean>, boiling_required?: Maybe<boolean>, ffa_recommended?: Maybe<boolean> }> }>> };
+
+export type MushroomQueryVariables = Exact<{
+  id: Scalars['Int'];
+}>;
+
+
+export type MushroomQuery = { __typename?: 'Query', mushroom?: Maybe<{ __typename?: 'Mushroom', id: number, name: string, description?: Maybe<string>, image?: Maybe<string>, mushroomDetails?: Maybe<{ __typename?: 'MushroomDetails', poison_level: number, taste_rating: number, dyeing?: Maybe<boolean>, boiling_required?: Maybe<boolean>, ffa_recommended?: Maybe<boolean> }> }> };
+
+export type CreateMushroomMutationVariables = Exact<{
+  data?: Maybe<NestedCreateMushroomInput>;
+}>;
+
+
+export type CreateMushroomMutation = { __typename?: 'Mutation', createMushroom?: Maybe<{ __typename?: 'Mushroom', name: string }> };
 
 
 
