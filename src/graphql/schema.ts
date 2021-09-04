@@ -63,7 +63,7 @@ export const typeDefs = gql`
 
   input NestedCreateMushroomInput {
     mushroom: CreateMushroomInput
-    mushroomDetails: MushroomDetailsInput
+    mushroomDetails: MushroomDetailsInput!
     user: Int!
   }
 `;
