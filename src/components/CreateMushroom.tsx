@@ -167,6 +167,7 @@ const ValidationMessage = styled.span`
 const Note = styled.span`
   font-size: 0.75em;
   padding-top: 0.25rem;
+  color: orange;
 `;
 
 export default CreateMushroom;
