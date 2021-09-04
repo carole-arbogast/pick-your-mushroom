@@ -1,7 +1,6 @@
-import React from "react";
-import { Meta } from "@storybook/react";
-
 import { Button } from "../components/layouts/Button";
+import { Meta } from "@storybook/react";
+import React from "react";
 
 export default {
   component: Button,

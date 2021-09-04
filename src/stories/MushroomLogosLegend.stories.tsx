@@ -1,7 +1,6 @@
-import React from "react";
 import { Meta } from "@storybook/react";
-
 import { MushroomLogosLegend } from "../components/MushroomLogosLegend";
+import React from "react";
 
 export default {
   component: MushroomLogosLegend,

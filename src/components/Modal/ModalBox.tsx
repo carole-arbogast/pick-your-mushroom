@@ -1,6 +1,5 @@
-import React from "react";
 import { ModalProps } from "./index";
-
+import React from "react";
 import styled from "styled-components";
 
 export function ModalBox(props: ModalProps) {

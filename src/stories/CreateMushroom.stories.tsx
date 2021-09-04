@@ -1,7 +1,6 @@
-import React from "react";
-import { Meta } from "@storybook/react";
-
 import { CreateMushroom } from "../components/CreateMushroom";
+import { Meta } from "@storybook/react";
+import React from "react";
 
 export default {
   component: CreateMushroom,

@@ -1,14 +1,13 @@
-import { request } from "graphql-request";
-
-import Modal from "../src/components/Modal";
-import MushroomList from "../src/components/MushroomList";
-import React from "react";
-import useSWR from "swr";
-import { getAllMushrooms } from "../src/graphql/queries";
-import { Mushroom } from "../src/generated/graphql";
-import Page from "../src/components/layouts/Page";
 import { Button } from "../src/components/layouts/Button";
 import CreateMushroom from "../src/components/CreateMushroom";
+import Modal from "../src/components/Modal";
+import { Mushroom } from "../src/generated/graphql";
+import MushroomList from "../src/components/MushroomList";
+import Page from "../src/components/layouts/Page";
+import React from "react";
+import { getAllMushrooms } from "../src/graphql/queries";
+import { request } from "graphql-request";
+import useSWR from "swr";
 
 export function Home() {
   const [isModalOpen, setIsModalOpen] = React.useState(false);

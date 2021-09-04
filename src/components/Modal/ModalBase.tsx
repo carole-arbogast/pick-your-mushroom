@@ -1,6 +1,6 @@
+import { ModalProps } from "./index";
 import React from "react";
 import styled from "styled-components";
-import { ModalProps } from "./index";
 
 export function ModalBase(props: ModalProps) {
   const { onClose } = props;

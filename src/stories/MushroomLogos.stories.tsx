@@ -1,8 +1,7 @@
-import React from "react";
 import { Meta } from "@storybook/react";
-
 import { MushroomDetails } from "../generated/graphql";
 import { MushroomLogos } from "../components/MushroomLogos";
+import React from "react";
 
 export default {
   component: MushroomLogos,

@@ -1,7 +1,6 @@
-import React from "react";
-
 import ModalBase from "./ModalBase";
 import ModalBox from "./ModalBox";
+import React from "react";
 
 export interface ModalProps {
   children: React.ReactNode;
