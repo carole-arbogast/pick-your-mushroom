@@ -15,7 +15,10 @@ export function Navbar() {
         </Link>
 
         <Link href="/" passHref>
-          <Title>🍄 Pick your mushroom 🍄</Title>
+          <Title>
+            <MushroomLogo>🍄</MushroomLogo> Pick your mushroom
+            <MushroomLogo>🍄</MushroomLogo>
+          </Title>
         </Link>
 
         <Github href="https://github.com/carole-arbogast/pick-your-mushroom">
@@ -32,6 +35,16 @@ const Title = styled.h1`
 
   &:hover {
     color: #e0dddd;
+  }
+
+  @media (max-width: 480px) {
+    margin: 1rem;
+  }
+`;
+
+const MushroomLogo = styled.span`
+  @media (max-width: 480px) {
+    display: none;
   }
 `;
 
