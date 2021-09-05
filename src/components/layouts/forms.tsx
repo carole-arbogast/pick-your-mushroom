@@ -3,7 +3,11 @@ import styled from "styled-components";
 export const Form = styled.form`
   display: flex;
   flex-direction: column;
-  width: 25em;
+  max-width: 25em;
+`;
+
+export const Input = styled.input`
+  /* max-width: 90%; */
 `;
 
 export const FieldGroup = styled.div`

@@ -21,6 +21,7 @@ const ModalBoxWrapper = styled.div`
   background: white;
   padding: 1.5rem;
   border-radius: 3px;
+  max-width: 90vw;
 `;
 
 const Header = styled.div`

@@ -1,6 +1,7 @@
 import {
   FieldGroup,
   Form,
+  Input,
   Label,
   Required,
   Select,
@@ -96,7 +97,7 @@ export function CreateMushroom(props: Props) {
           <Label>
             Name <Required>*</Required>
           </Label>
-          <input {...register("name", { required: true })}></input>
+          <Input {...register("name", { required: true })}></Input>
           {errors.name && (
             <ValidationMessage>This field is required</ValidationMessage>
           )}
@@ -155,7 +156,12 @@ export function CreateMushroom(props: Props) {
 }
 
 const Wrapper = styled.div`
-  width: 25em;
+  max-width: 25em;
+  max-height: 95vh;
+
+  @media (max-width: 480px) {
+    overflow-y: scroll;
+  }
 `;
 
 const ValidationMessage = styled.span`
